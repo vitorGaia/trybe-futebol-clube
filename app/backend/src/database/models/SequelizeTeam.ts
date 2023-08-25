@@ -6,11 +6,12 @@ import {
   Model,
 } from 'sequelize';
 import db from '.';
+import ITeam from '../../Interfaces/teams/ITeam';
 
 class SequelizeTeam extends Model<InferAttributes<SequelizeTeam>,
 InferCreationAttributes<SequelizeTeam>> {
   declare id: CreationOptional<number>;
-  declare teamName: string;
+  declare teamName: ITeam['teamName'];
 }
 
 SequelizeTeam.init({
