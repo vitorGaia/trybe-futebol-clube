@@ -10,7 +10,7 @@ import ITeam from '../../Interfaces/teams/ITeam';
 
 class SequelizeTeam extends Model<InferAttributes<SequelizeTeam>,
 InferCreationAttributes<SequelizeTeam>> {
-  declare id: CreationOptional<number>;
+  declare id: CreationOptional<ITeam['id']>;
   declare teamName: ITeam['teamName'];
 }
 
