@@ -6,18 +6,18 @@ import {
   Model,
 } from 'sequelize';
 import db from '.';
-import ILogin from '../../Interfaces/login/ILogin';
+import IUser from '../../Interfaces/users/IUser';
 
-class SequelizeLogin extends Model<InferAttributes<SequelizeLogin>,
-InferCreationAttributes<SequelizeLogin>> {
-  declare id: CreationOptional<ILogin['id']>;
-  declare username: ILogin['username'];
-  declare role: ILogin['role'];
-  declare email: ILogin['email'];
-  declare password: ILogin['password'];
+class SequelizeUser extends Model<InferAttributes<SequelizeUser>,
+InferCreationAttributes<SequelizeUser>> {
+  declare id: CreationOptional<IUser['id']>;
+  declare username: IUser['username'];
+  declare role: IUser['role'];
+  declare email: IUser['email'];
+  declare password: IUser['password'];
 }
 
-SequelizeLogin.init({
+SequelizeUser.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -47,4 +47,4 @@ SequelizeLogin.init({
   underscored: true,
 });
 
-export default SequelizeLogin;
+export default SequelizeUser;
