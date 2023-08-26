@@ -20,6 +20,26 @@ describe('Testes da rota /teams', function() {
     expect(body).to.deep.equal(teamsMocks.teams);
   })
 
+  it('Deve retornar um time corretamente quando buscado pelo id', async function() {
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(teamsMocks.team as any);
+
+    const { status, body } = await chai.request(app)
+    .get('/teams/1');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(teamsMocks.team);
+  })
+
+  it('Deve retornar "Team not found" quando busca com um id inexistente', async function() {
+    sinon.stub(SequelizeTeam, 'findByPk').resolves(null);
+
+    const { status, body } = await chai.request(app)
+    .get('/teams/999');
+
+    expect(status).to.equal(404);
+    expect(body).to.deep.equal({ message: 'Team not found' });
+  })
+
   afterEach(function() {
     sinon.restore()
   })

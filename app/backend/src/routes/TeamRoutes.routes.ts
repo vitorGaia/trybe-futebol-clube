@@ -9,4 +9,9 @@ router.get(
   (req: Request, res: Response) => teamController.getAllTeams(req, res),
 );
 
+router.get(
+  '/:id',
+  (req: Request, res: Response) => teamController.getTeamById(req, res),
+);
+
 export default router;
