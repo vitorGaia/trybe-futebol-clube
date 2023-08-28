@@ -40,7 +40,5 @@ describe('Testes da rota /teams', function() {
     expect(body).to.deep.equal({ message: 'Team not found' });
   })
 
-  afterEach(function() {
-    sinon.restore()
-  })
+  afterEach(sinon.restore);
 })
