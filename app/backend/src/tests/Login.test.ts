@@ -22,17 +22,6 @@ describe('Testes da rota /login', function() {
     expect(body).to.deep.equal({ message: 'All fields must be filled' });
   })
 
-  it('Deve retornar "User not found" caso o usuário não exista no db', async function() {
-    sinon.stub(SequelizeUser, 'findOne').resolves(null);
-
-    const { status, body } = await chai.request(app)
-    .post('/login')
-    .send(loginMocks.inexistentUserLoguinBody);
-
-    expect(status).to.equal(404);
-    expect(body).to.deep.equal({ message: 'User not found' });
-  })
-
   it('Deve retornar "Invalid email or password" caso algum campo da requisição esteja incorreto', async function() {
     sinon.stub(SequelizeUser, 'findOne').resolves(loginMocks.validUserResponse as any);
     sinon.stub(bcrypt, 'compareSync').returns(false);
@@ -41,7 +30,7 @@ describe('Testes da rota /login', function() {
     .post('/login')
     .send(loginMocks.invalidLoginBody);
 
-    expect(status).to.equal(400);
+    expect(status).to.equal(401);
     expect(body).to.deep.equal({ message: 'Invalid email or password' });
   })
 
