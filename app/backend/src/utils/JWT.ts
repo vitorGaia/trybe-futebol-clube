@@ -14,7 +14,8 @@ export default class JWT {
 
   static verify(token: string): JwtPayload | string {
     try {
-      return verify(token, this.secret) as JwtPayload;
+      const decodedToken = verify(token, this.secret) as JwtPayload;
+      return decodedToken.email;
     } catch (error) {
       return 'Token must be a valid token';
     }

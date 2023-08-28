@@ -5,7 +5,10 @@ export interface ILogin {
   password: string;
 }
 
-export default interface IUser extends ILogin, Identifiable {
-  username: string,
+export interface IUserRole {
   role: string,
+}
+
+export default interface IUser extends ILogin, IUserRole, Identifiable {
+  username: string,
 }

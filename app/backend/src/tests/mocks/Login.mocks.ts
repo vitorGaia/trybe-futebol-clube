@@ -27,10 +27,15 @@ const inexistentUserLoguinBody = {
   password: 'secret_admin',
 }
 
+const invalidToken = {
+  token: 'laueyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY5MzIyNDcyNiwiZXhwIjoxNjk0MDg4NzI2fQ.j4qhE67SGr3Zz5ikJaErvtMVEuaPHZLWUxQYEAL_LjU'
+}
+
 export default {
   validLoginBody,
   validUserResponse,
   validToken,
   invalidLoginBody,
   inexistentUserLoguinBody,
+  invalidToken,
 }
