@@ -1,4 +1,4 @@
-import IMatch from '../Interfaces/match/IMatch';
+import IMatch, { IMatchGoals } from '../Interfaces/match/IMatch';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import TeamModel from './TeamModel';
 
@@ -22,6 +22,19 @@ export default class MatchModel {
 
   async updateInProgress(id: IMatch['id'], inProgress: boolean): Promise<IMatch | null> {
     const [affectedRows] = await this._matchModel.update({ inProgress }, { where: { id } });
+    if (affectedRows === 0) {
+      return null;
+    }
+    return this._matchModel.findByPk(id);
+  }
+
+  async updateResult(
+    id: IMatch['id'],
+    { homeTeamGoals, awayTeamGoals }: IMatchGoals,
+  ): Promise<IMatch | null> {
+    const [affectedRows] = await this
+      ._matchModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
     if (affectedRows === 0) {
       return null;
     }

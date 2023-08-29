@@ -1,7 +1,7 @@
 import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 import IMatchModel from '../Interfaces/match/IMatchModel';
 import MatchModel from '../models/MatchModel';
-import IMatch from '../Interfaces/match/IMatch';
+import IMatch, { IMatchGoals } from '../Interfaces/match/IMatch';
 
 export default class MatchService {
   constructor(private _matchModel: IMatchModel = new MatchModel()) {}
@@ -20,5 +20,16 @@ export default class MatchService {
       return { status: 'NOT_FOUND', data: { message: 'Match not found' } };
     }
     return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
+  }
+
+  public async updateResult(
+    id: number,
+    data: IMatchGoals,
+  ): Promise<ServiceResponse<ServiceMessage | IMatch>> {
+    const updateMatch = await this._matchModel.updateResult(id, data);
+    if (!updateMatch) {
+      return { status: 'NOT_FOUND', data: { message: 'Match not found' } };
+    }
+    return { status: 'SUCCESSFUL', data: updateMatch };
   }
 }
