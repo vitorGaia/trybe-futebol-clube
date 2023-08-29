@@ -19,4 +19,12 @@ export default class MatchModel {
     }));
     return formattedMatches;
   }
+
+  async updateInProgress(id: IMatch['id'], inProgress: boolean): Promise<IMatch | null> {
+    const [affectedRows] = await this._matchModel.update({ inProgress }, { where: { id } });
+    if (affectedRows === 0) {
+      return null;
+    }
+    return this._matchModel.findByPk(id);
+  }
 }
