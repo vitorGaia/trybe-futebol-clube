@@ -41,9 +41,16 @@ export default class MatchModel {
     return this._matchModel.findByPk(id);
   }
 
-  async createMatch(data: IMatch): Promise<IMatch> {
-    const newMatch = await this._matchModel.create({ ...data, inProgress: true });
-    const { id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress } = newMatch;
+  async createMatch(
+    { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals }: IMatch,
+  ): Promise<IMatch | null> {
+    const homeTeam = await this._matchModel.findByPk(homeTeamId);
+    const awayTeam = await this._matchModel.findByPk(awayTeamId);
+    if (!homeTeam || !awayTeam) return null;
+
+    const newMatch = await this._matchModel
+      .create({ homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress: true });
+    const { id, inProgress } = newMatch;
     return { id, homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress };
   }
 }

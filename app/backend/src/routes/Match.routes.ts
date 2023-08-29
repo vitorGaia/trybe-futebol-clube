@@ -25,6 +25,7 @@ router.patch(
 router.post(
   '/',
   Validations.validateToken,
+  Validations.validateNewMatch,
   (req: Request, res: Response) => matchController.createMatch(req, res),
 );
 
