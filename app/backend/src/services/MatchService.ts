@@ -32,4 +32,9 @@ export default class MatchService {
     }
     return { status: 'SUCCESSFUL', data: updateMatch };
   }
+
+  public async createMatch(data: IMatch): Promise<ServiceResponse<IMatch>> {
+    const newMatch = await this._matchModel.createMatch(data);
+    return { status: 'CREATED', data: newMatch };
+  }
 }

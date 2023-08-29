@@ -18,5 +18,5 @@ export default interface IMatch extends
   IMatchHomeTeam,
   IMatchAwayTeam,
   IMatchGoals {
-  inProgress: boolean,
+  inProgress?: boolean,
 }
