@@ -25,7 +25,6 @@ describe('Testes da rota /matches', function() {
     .post('/matches')
     .send(matchesMocks.invalidMatchBody)
     .set('authorization', loginMocks.validToken.token);
-    console.log(body);
 
     expect(status).to.equal(404);
     expect(body).to.deep.equal({ message: 'There is no team with such id!' });
