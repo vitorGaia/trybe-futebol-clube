@@ -12,6 +12,7 @@ export default class MatchModel {
       const boolInProgress = inProgress === 'true';
       whereClause = { inProgress: boolInProgress };
     }
+
     const dbData = await this._matchModel.findAll({
       where: whereClause,
       include: [
@@ -19,7 +20,8 @@ export default class MatchModel {
         { model: this._teamModel, as: 'awayTeam', attributes: ['teamName'] },
       ],
     });
-    return dbData.map((match) => match.dataValues);
+
+    return dbData;
   }
 
   async updateInProgress(id: IMatch['id'], inProgress: boolean): Promise<IMatch | null> {
