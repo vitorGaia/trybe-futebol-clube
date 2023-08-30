@@ -1,23 +1,19 @@
+import SequelizeTeam from '../database/models/SequelizeTeam';
 import IMatch, { IMatchGoals } from '../Interfaces/match/IMatch';
 import SequelizeMatch from '../database/models/SequelizeMatch';
-import TeamModel from './TeamModel';
 
 export default class MatchModel {
   private _matchModel = SequelizeMatch;
-  private _teamModel = new TeamModel();
+  private _teamModel = SequelizeTeam;
 
   async findAll(): Promise<IMatch[]> {
-    const dbData = await this._matchModel.findAll();
-    const formattedMatches = await Promise.all(dbData.map(async (match) => {
-      const homeTeam = await this._teamModel.findById(match.homeTeamId);
-      const awayTeam = await this._teamModel.findById(match.awayTeamId);
-      return {
-        ...match.dataValues,
-        homeTeam: { teamName: homeTeam?.teamName },
-        awayTeam: { teamName: awayTeam?.teamName },
-      };
-    }));
-    return formattedMatches;
+    const dbData = await this._matchModel.findAll({
+      include: [
+        { model: this._teamModel, as: 'homeTeam', attributes: ['teamName'] },
+        { model: this._teamModel, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+    });
+    return dbData.map((match) => match.dataValues);
   }
 
   async updateInProgress(id: IMatch['id'], inProgress: boolean): Promise<IMatch | null> {

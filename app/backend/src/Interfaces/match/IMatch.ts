@@ -1,4 +1,5 @@
 import { Identifiable } from '..';
+import ITeam from '../teams/ITeam';
 
 export interface IMatchHomeTeam {
   homeTeamId: number,
@@ -19,4 +20,6 @@ export default interface IMatch extends
   IMatchAwayTeam,
   IMatchGoals {
   inProgress?: boolean,
+  homeTeam?: { teamName: ITeam['teamName'] | null },
+  awayTeam?: { teamName: ITeam['teamName'] | null },
 }
