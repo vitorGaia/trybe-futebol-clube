@@ -10,10 +10,10 @@ const orderFunction = (teamA: ILeaderBoard, teamB: ILeaderBoard) => {
     return teamB.totalVictories - teamA.totalVictories;
   }
 
-  if ((teamA.goalsBalance && teamB.goalsBalance)
-  && teamB.goalsBalance !== teamA.goalsBalance) {
-    return teamB.goalsBalance - teamA.goalsBalance;
-  }
+  if (
+    (teamA.goalsBalance && teamB.goalsBalance)
+    && teamB.goalsBalance !== teamA.goalsBalance
+  ) return teamB.goalsBalance - teamA.goalsBalance;
 
   return teamB.goalsFavor - teamA.goalsFavor;
 };
@@ -70,12 +70,8 @@ const calcTotalDraws = (teamId: number, data: IMatch[]) => {
 const calcTotalLosses = (teamId: number, data: IMatch[]) => {
   let totalLosses = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId && match.homeTeamGoals < match.awayTeamGoals) {
-      totalLosses += 1;
-    }
-    if (match.awayTeamId === teamId && match.awayTeamGoals < match.homeTeamGoals) {
-      totalLosses += 1;
-    }
+    if (match.homeTeamId === teamId && match.homeTeamGoals < match.awayTeamGoals) totalLosses += 1;
+    if (match.awayTeamId === teamId && match.awayTeamGoals < match.homeTeamGoals) totalLosses += 1;
   });
   return totalLosses;
 };
@@ -83,12 +79,8 @@ const calcTotalLosses = (teamId: number, data: IMatch[]) => {
 const calcGoalsFavor = (teamId: number, data: IMatch[]) => {
   let goalsFavor = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId) {
-      goalsFavor += match.homeTeamGoals;
-    }
-    if (match.awayTeamId === teamId) {
-      goalsFavor += match.awayTeamGoals;
-    }
+    if (match.homeTeamId === teamId) goalsFavor += match.homeTeamGoals;
+    if (match.awayTeamId === teamId) goalsFavor += match.awayTeamGoals;
   });
   return goalsFavor;
 };
@@ -96,12 +88,8 @@ const calcGoalsFavor = (teamId: number, data: IMatch[]) => {
 const calcGoalsOwn = (teamId: number, data: IMatch[]) => {
   let goalsOwn = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId) {
-      goalsOwn += match.awayTeamGoals;
-    }
-    if (match.awayTeamId === teamId) {
-      goalsOwn += match.homeTeamGoals;
-    }
+    if (match.homeTeamId === teamId) goalsOwn += match.awayTeamGoals;
+    if (match.awayTeamId === teamId) goalsOwn += match.homeTeamGoals;
   });
   return goalsOwn;
 };

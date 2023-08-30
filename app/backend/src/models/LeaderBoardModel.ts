@@ -2,7 +2,6 @@ import SequelizeTeam from '../database/models/SequelizeTeam';
 import SequelizeMatch from '../database/models/SequelizeMatch';
 import leaderBoardUtils from '../utils/leaderBoardUtils';
 import { ILeaderBoard } from '../Interfaces/leaderBoard/ILeaderBoard';
-// import IMatch from '../Interfaces/match/IMatch';
 
 export default class LeaderBoardModel {
   private _matchModel = SequelizeMatch;

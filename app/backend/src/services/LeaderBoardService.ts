@@ -8,16 +8,17 @@ export default class LeaderBoardService {
 
   public async getAllLeaderBoards(): Promise<ServiceResponse<ILeaderBoard[]>> {
     const leaderBoards = await this._leaderBoardModel.findAll();
-    const formatLeaderBoards = leaderBoards.map((leaderBoard) => ({
-      name: leaderBoard.name,
-      totalPoints: leaderBoard.totalPoints,
-      totalGames: leaderBoard.totalGames,
-      totalVictories: leaderBoard.totalVictories,
-      totalDraws: leaderBoard.totalDraws,
-      totalLosses: leaderBoard.totalLosses,
-      goalsFavor: leaderBoard.goalsFavor,
-      goalsOwn: leaderBoard.goalsOwn,
-    }));
-    return { status: 'SUCCESSFUL', data: formatLeaderBoards };
+    return { status: 'SUCCESSFUL', data: leaderBoards };
   }
 }
+
+// const formatLeaderBoards = leaderBoards.map((leaderBoard) => ({
+//   name: leaderBoard.name,
+//   totalPoints: leaderBoard.totalPoints,
+//   totalGames: leaderBoard.totalGames,
+//   totalVictories: leaderBoard.totalVictories,
+//   totalDraws: leaderBoard.totalDraws,
+//   totalLosses: leaderBoard.totalLosses,
+//   goalsFavor: leaderBoard.goalsFavor,
+//   goalsOwn: leaderBoard.goalsOwn,
+// }));
