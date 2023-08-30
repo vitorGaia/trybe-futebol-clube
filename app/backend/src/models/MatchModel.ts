@@ -6,8 +6,14 @@ export default class MatchModel {
   private _matchModel = SequelizeMatch;
   private _teamModel = SequelizeTeam;
 
-  async findAll(): Promise<IMatch[]> {
+  async findAll(inProgress?: string): Promise<IMatch[]> {
+    let whereClause = {};
+    if (inProgress) {
+      const boolInProgress = inProgress === 'true';
+      whereClause = { inProgress: boolInProgress };
+    }
     const dbData = await this._matchModel.findAll({
+      where: whereClause,
       include: [
         { model: this._teamModel, as: 'homeTeam', attributes: ['teamName'] },
         { model: this._teamModel, as: 'awayTeam', attributes: ['teamName'] },
