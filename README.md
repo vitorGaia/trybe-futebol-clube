@@ -26,7 +26,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 ## 🎮 Como executar
 ```bash
 # Clone este repositório
-$ git clone test
+$ git clone git@github.com:vitorGaia/trybe-futebol-clube.git
 
 # Instale as dependências
 $ npm run install:apps
