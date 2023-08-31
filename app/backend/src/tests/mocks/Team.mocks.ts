@@ -1,14 +1,14 @@
 const team = {
-  id: 1,
-  teamName: 'Tabajara Futebol Clube'
+  id: 16,
+  teamName: 'São Paulo'
 }
 
 const team2 = {
-  id: 2,
-  teamName: 'Tabajara Futebol Clube2'
+  id: 8,
+  teamName: 'Grêmio'
 }
 
-const teams = [team]
+const teams = [team, team2]
 
 export default {
   team,
