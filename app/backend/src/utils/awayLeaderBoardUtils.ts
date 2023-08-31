@@ -1,20 +1,8 @@
-import { ILeaderBoard } from '../Interfaces/leaderBoard/ILeaderBoard';
 import IMatch from '../Interfaces/match/IMatch';
-
-const orderFunction = (a: ILeaderBoard, b: ILeaderBoard) => {
-  if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
-  if (b.totalVictories !== a.totalVictories) return b.totalVictories - a.totalVictories;
-  if (b.goalsBalance !== a.goalsBalance) return b.goalsBalance - a.goalsBalance;
-  return b.goalsFavor - a.goalsFavor;
-};
 
 const calcTotalPoints = (teamId: number, data: IMatch[]) => {
   let totalPoints = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId) {
-      if (match.homeTeamGoals > match.awayTeamGoals) totalPoints += 3;
-      if (match.homeTeamGoals === match.awayTeamGoals) totalPoints += 1;
-    }
     if (match.awayTeamId === teamId) {
       if (match.awayTeamGoals > match.homeTeamGoals) totalPoints += 3;
       if (match.awayTeamGoals === match.homeTeamGoals) totalPoints += 1;
@@ -26,7 +14,7 @@ const calcTotalPoints = (teamId: number, data: IMatch[]) => {
 const calcTotalGames = (teamId: number, data: IMatch[]) => {
   let totalGames = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId || match.awayTeamId === teamId) totalGames += 1;
+    if (match.awayTeamId === teamId) totalGames += 1;
   });
   return totalGames;
 };
@@ -34,9 +22,6 @@ const calcTotalGames = (teamId: number, data: IMatch[]) => {
 const calcTotalVictories = (teamId: number, data: IMatch[]) => {
   let totalVictories = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId && match.homeTeamGoals > match.awayTeamGoals) {
-      totalVictories += 1;
-    }
     if (match.awayTeamId === teamId && match.awayTeamGoals > match.homeTeamGoals) {
       totalVictories += 1;
     }
@@ -47,9 +32,6 @@ const calcTotalVictories = (teamId: number, data: IMatch[]) => {
 const calcTotalDraws = (teamId: number, data: IMatch[]) => {
   let totalDraws = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId && match.homeTeamGoals === match.awayTeamGoals) {
-      totalDraws += 1;
-    }
     if (match.awayTeamId === teamId && match.awayTeamGoals === match.homeTeamGoals) {
       totalDraws += 1;
     }
@@ -60,7 +42,6 @@ const calcTotalDraws = (teamId: number, data: IMatch[]) => {
 const calcTotalLosses = (teamId: number, data: IMatch[]) => {
   let totalLosses = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId && match.homeTeamGoals < match.awayTeamGoals) totalLosses += 1;
     if (match.awayTeamId === teamId && match.awayTeamGoals < match.homeTeamGoals) totalLosses += 1;
   });
   return totalLosses;
@@ -69,7 +50,6 @@ const calcTotalLosses = (teamId: number, data: IMatch[]) => {
 const calcGoalsFavor = (teamId: number, data: IMatch[]) => {
   let goalsFavor = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId) goalsFavor += match.homeTeamGoals;
     if (match.awayTeamId === teamId) goalsFavor += match.awayTeamGoals;
   });
   return goalsFavor;
@@ -78,7 +58,6 @@ const calcGoalsFavor = (teamId: number, data: IMatch[]) => {
 const calcGoalsOwn = (teamId: number, data: IMatch[]) => {
   let goalsOwn = 0;
   data.forEach((match) => {
-    if (match.homeTeamId === teamId) goalsOwn += match.awayTeamGoals;
     if (match.awayTeamId === teamId) goalsOwn += match.homeTeamGoals;
   });
   return goalsOwn;
@@ -96,7 +75,6 @@ const calcEfficiency = (teamId: number, data: IMatch[]) => {
 };
 
 export default {
-  orderFunction,
   calcTotalPoints,
   calcTotalGames,
   calcTotalVictories,
